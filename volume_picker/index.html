@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Picker #1</title>
+</head>
+
+<body>
+    <div id="button"></div>
+    <div id="outside_bar">
+        <div id="inside_bar"></div>
+    </div>
+    <div id="percent">5%</div>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            margin: 30px;
+        }
+
+        #button {
+            display: inline-block;
+            background-color: rgb(133, 133, 133);
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        #button:active {
+            background-color: lightgray;
+            transition: 5s;
+        }
+
+        #outside_bar,
+        #inside_bar {
+            border-radius: 10px;
+            height: 9px;
+        }
+
+        #outside_bar {
+            display: inline-block;
+            background-color: lightgray;
+            width: 200px;
+            margin: 0 10px;
+        }
+
+        #inside_bar {
+            background-color: rgb(133, 133, 133);
+            width: 4.5%;
+            transition: .3s;
+        }
+    </style>
+    <script>
+        const button = document.getElementById("button");
+        const bar = document.getElementById("inside_bar");
+        const text = document.getElementById("percent");
+        let start_t;
+        button.onmousedown = () => start_t = new Date().getTime();
+        button.onmouseup = () => {
+            let press_t = (new Date().getTime() - start_t) / 25;
+            if (press_t > 100) press_t = 100;
+            if (press_t < 4.5) press_t = 4.5;
+            const per = `${Math.round(press_t)}%`;
+            bar.style.width = per;
+            text.innerHTML = per;
+        }
+    </script>
+
+</body>
+
+</html>
